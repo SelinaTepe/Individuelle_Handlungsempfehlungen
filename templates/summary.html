@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Ergebnisse</title>
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Zusammenfassung Ihrer Antworten</h2>
+        <ul>
+            <li><strong>Gerät:</strong> {{ device }}</li>
+            <li><strong>Betriebssystem:</strong> {{ os }}</li>
+            <li><strong>Aktivitäten:</strong>
+                <ul>
+                    {% for activity in activities %}
+                    <li>{{ activity }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li><strong>Umgesetzte Sicherheitsmaßnahmen:</strong>
+                <ul>
+                    {% for measure in measures %}
+                    <li>{{ measure }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li><strong>Sicherheitsgefühl:</strong> {{ security_feeling }}</li>
+        </ul>
+        <a href="{{ url_for('questions') }}" class="btn btn-primary">Zurück zum Check</a>
+    </div>
+</body>
+</html>
