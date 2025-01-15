@@ -1,4 +1,2 @@
-Flask
-Flask-WTF
-requests
-reportlab
+flask
+gunicorn
