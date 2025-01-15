@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Handlungsempfehlungen zur IT-Sicherheit</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version) -->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap) -->
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand text-dark" href="{{ url_for('index') }}">Handlungsempfehlungen zur IT-Sicherheit</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="{{ url_for('index') }}">Startseite</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="{{ url_for('questions') }}">IT-Sicherheitscheck</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url('{{ url_for('static', filename='assets/img/title2.webp') }}')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h2>Schützen Sie sich im Internet mit Tipps zur IT-Sicherheit</h2>
+                        <span class="subheading">Für mehr Sicherheit im Internet</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Fragen -->
+    <div class="container mt-5">
+        <form method="POST" action="{{ url_for('recommendations') }}">
+            <div class="mb-3">
+                <div class="mb-3">
+                    <label for="device" class="form-label">Zu welchem Gerät möchten Sie Handlungsempfehlungen?</label>
+                    <select class="form-select" id="device" name="device" required>
+                        <option value="" selected disabled>Wählen Sie ein Gerät aus</option>
+                        <option value="Laptop und Desktop-PC">Laptop oder Desktop-PC</option>
+                        <option value="Smartphone und Tablet">Smartphone oder Tablet</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="activity" class="form-label">Für welche Aktivität möchten Sie Handlungsempfehlungen?</label>
+                    <select class="form-select" id="activity" name="activity" required>
+                        <option value="" selected disabled>Wählen Sie eine Aktivität...</option>
+                        <option value="E-mail senden und empfangen">E-mail senden und empfangen</option>
+                        <option value="Surfen im Internet">Surfen im Internet</option>
+                        <option value="Telefonie/ Videotelefonie">Telefonie/ Videotelefonie</option>
+                        <option value="Messenger">Messenger</option>
+                        <option value="Online Banking">Online Banking</option>
+                        <option value="Soziale Medien">Soziale Medien</option>
+                        <option value="Waren Ein- oder Verkaufen">Waren Ein- oder Verkaufen</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3" id="measures-container" style="display: none;">
+                    <label for="measures" class="form-label">Welche Sicherheitsmaßnahmen setzen Sie bereits um?</label>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary w-100" type="button" id="measuresDropdown" aria-expanded="false">
+                            Wählen Sie umgesetzte Maßnahmen
+                        </button>
+                        <div class="dropdown-menu static-dropdown w-100" aria-labelledby="measuresDropdown">
+                            <!-- Maßnahmen für Phishing -->
+                            <div id="phishing-measures">
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Aktivieren Sie Spam- und Phishing-Filter." id="measure1">
+                                    <label class="form-check-label" for="measure1">Ich nutze Spam- und Phishing-Filter</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Prüfen Sie Absenderadressen." id="measure2">
+                                    <label class="form-check-label" for="measure2">Ich prüfe die Absenderadresse einer E-Mail</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Klicken Sie nicht auf verdächtige Links." id="measure3">
+                                    <label class="form-check-label" for="measure3">Ich prüfe Links bevor ich diese anklicken</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Seien Sie vorsichtig mit Anhängen in E-Mails." id="measure4">
+                                    <label class="form-check-label" for="measure4">Ich bin vorsichtig mit Anhängen in E-Mails</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Seien Sie skeptisch." id="measure5">
+                                    <label class="form-check-label" for="measure5">Ich lösche verdächtige E-Mails sofort</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Nutzen Sie Sicherheissoftware." id="measures">
+                                    <label class="form-check-label" for="measures">Ich nutze Sicherheitssoftware</label>
+                                </div>
+                            </div>
+                            
+                            <!-- Zusätzliche Maßnahmen für Netzwerk -->
+                            <div id="network-measures" style="display: none;">
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Erkennen Sie sichere Verbindungen" id="network1">
+                                    <label class="form-check-label" for="network1">Ich prüfe auf sichere Verbindungen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Nutzen Sie sichere Verschlüsselungsprotokolle" id="network2">
+                                    <label class="form-check-label" for="network2">Ich nutze sichere Verschlüsselung</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Verschlüsselung bei sensiblen E-Mails" id="network3">
+                                    <label class="form-check-label" for="network3">Ich verschlüssel sensible E-Mails</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="VPN für öffentliche WLAN-Hotspots" id="network4">
+                                    <label class="form-check-label" for="network4">Ich nutze einen VPN für öffentliche WLAN-Hotspots</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Nutzung von vertrauenswürdigen Netzwerken" id="network5">
+                                    <label class="form-check-label" for="network5">Ich nutze nur vertrauenswürdige Netzwerke</label>
+                                </div>
+                            </div>
+
+                            
+
+
+                            <!--Zusätzliche MAßnahmen für Surfen-->
+                            <div id="surfing-measures" style="display: none;">
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Nutzen Sie einen sicheren Browser" id="surfing1">
+                                    <label class="form-check-label" for="surfing1">Ich nutze einen sicheren Browser</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Prüfen Sie Links bevor Sie diese anklicken" id="surfing2">
+                                    <label class="form-check-label" for="surfing2">Ich prüfe Links vor dem anklicken</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Installieren Sie Software nur aus seriösen Quellen" id="surfing3">
+                                    <label class="form-check-label" for="surfing3">Ich installiere nur Software aus seriösen Quellen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Blockieren Sie Pop-ups und Werbungen" id="surfing4">
+                                    <label class="form-check-label" for="surfing4">Ich blockiere Pop-ups und Werbungen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Nutzen Sie Sicherheitssoftwares wie Antivirenprogramme" id="surfing5">
+                                    <label class="form-check-label" for="surfing5">Ich nutze Sicherheitssoftwares wie Antivirenprogramme</label>
+                                </div>
+                            </div>
+
+                            <div id="surfing2-measures" style="display: none;">
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Nutzen Sie sichere Verbindungen" id="surf1">
+                                    <label class="form-check-label" for="surf1">Ich nutze einen sichere Verbindungen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Vermeiden Sie Eingaben auf unsicheren Webseiten" id="surf2">
+                                    <label class="form-check-label" for="surf2">Ich vermeide die Eingabe auf unsicheren Webseiten</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Verwenden Sie ein VPN in öffentlichen Netzwerken" id="surf3">
+                                    <label class="form-check-label" for="surf3">Ich verwende ein VPN in öffentlichen Netzwerken</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Deaktivieren Sie die automatische Verbindung zu WLANs" id="surf4">
+                                    <label class="form-check-label" for="surf4">Ich deaktiviere die automatische Verbindung zu WLANs</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Beschränken Sie Cookies" id="surf5">
+                                    <label class="form-check-label" for="surf5">Ich beschränke meine Cookies</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Prüfen Sie WLAN-Verbindungen" id="surf6">
+                                    <label class="form-check-label" for="surf6">Ich prüfe meine WLAN-Verbindungen</label>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+                            <!--Maßnahmen für Telefonie-->
+                            <div id="socialtel-measures" style="display: none;">
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Seien Sie vorsichtig bei unbekannten Nummern" id="socialtele1">
+                                    <label class="form-check-label" for="socialtele1">Ich bin vorsichtig bei unbekannten Nummern</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Prüfen Sie die Identität des Anrufers" id="socialtele2">
+                                    <label class="form-check-label" for="socialtele2">Ich prüfe die Identität des Anrufers</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Teilen Sie keine sensiblen Daten" id="socialtele3">
+                                    <label class="form-check-label" for="socialtele3">Ich teile keine sensiblen Daten</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Schützen Sie sich vor Spam-Anrufen" id="socialtele4">
+                                    <label class="form-check-label" for="socialtele4">Ich schütze mich vor Spam-Anrufen</label>
+                                </div>
+                            </div>                             
+
+
+                            <!--Zusätzliche Maßnahmen für Verschlüsselung-->
+                            <div id="telefonie-measures" style="display: none;">
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Nutzen Sie Plattformen mit Ende-zu-Ende-Verschlüsselung" id="tele1">
+                                    <label class="form-check-label" for="tele1">Ich nutze Ende-zu-Ende</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Vermeiden Sie öffentliche WLAN-Hotspots" id="tele2">
+                                    <label class="form-check-label" for="tele2">Ich nutze öffentliche WLAN-Hotspots nur mit VPN</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Prüfen Sie Netzwerke" id="tele3">
+                                    <label class="form-check-label" for="tele3">Ich prüfe Netzwerke</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Sprechen Sie sensible Themen nur in sicheren Umgebungen an" id="tele4">
+                                    <label class="form-check-label" for="tele4">Ich vermeide unsichere vertrauliche Gespräche</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Nutzen Sie Sicherheitsfunktionen" id="tele5">
+                                    <label class="form-check-label" for="tele5">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Nutzen Sie Verschlüsselung" id="tele6">
+                                    <label class="form-check-label" for="tele6">Ich achte darauf, dass meine verschlüsselt wird</label>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+                            <!--Zusätzliche Maßnahmen für Messenger-->
+                            <div id="msgphish-measures" style="display: none;">
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Klicken Sie nicht auf verdächtige Links" id="msg2">
+                                    <label class="form-check-label" for="msg2">Ich klicke nicht auf verdächtige Links</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Prüfen Sie Dateien vor dem Herunterladen" id="msg3">
+                                    <label class="form-check-label" for="msg3">Ich prüfe Dateien vor dem Hernterladen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Aktivieren Sie Sicherheitsfunktionen in Messengern" id="msg4">
+                                    <label class="form-check-label" for="msg4">Ich habe die Sicherheitsfunktionen meines Messeners aktiviert</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Geben Sie keine sensiblen Daten weiter" id="msg5">
+                                    <label class="form-check-label" for="msg5">Ich gebe keine sensiblen Daten weiter</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Seien Sie skeptisch bei ungewöhnlichen Nachrichten von bekannten Kontakten" id="msg6">
+                                    <label class="form-check-label" for="msg6">Ich bin skeptisch bei ungewöhnlichen Nachrichten</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Schalten Sie den automatischen Download von Dateien aus" id="msg7">
+                                    <label class="form-check-label" for="msg7">Ich habe den automatischen Download ausgeschaltet</label>
+                                </div>
+                            </div>   
+
+
+
+                            <!--Zusätzliche Maßnahmen für Messenger-->
+                            <div id="msgencr-measures" style="display: none;">
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Nutzen Sie Messenger mit Ende-zu-Ende-Verschlüsselung" id="msgenc1">
+                                    <label class="form-check-label" for="msgenc1">Ich nutze Ende-zu-Ende-Verschlüsselung</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Vermeiden Sie öffentliche WLAN-Hotspots" id="msgenc2">
+                                    <label class="form-check-label" for="msgenc2">Ich nutze öffentliche WLAN-Hotspots nur mit VPN</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Verwenden Sie etablierte Messenger-Dienste" id="msgenc3">
+                                    <label class="form-check-label" for="msgenc3">Ich verwende einen etablierten Messenger-Dienst</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Achten Sie auf Netzwerk-Sicherheit" id="msgenc4">
+                                    <label class="form-check-label" for="msgenc4">Ich achte auf sichere Netzwerke</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Seien Sie vorsichtig mit neuen oder unbekannten Diensten" id="msgenc5">
+                                    <label class="form-check-label" for="msgenc5">Ich bin vorsichti mit neuen oder unbekannten Diensten</label>
+                                </div>
+                            </div>
+                            
+                            
+
+
+
+
+
+
+
+                            <!--Zusätzliche Maßnahmen für Banking-->
+                            <div id="bankphish-measures" style="display: none;">
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Geben Sie keine sensiblen Daten weiter" id="bankphish1">
+                                    <label class="form-check-label" for="bankphish1">Ich gebe keine sensiblen Daten weiter</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Prüfen Sie die URL der Webseite" id="bankphish2">
+                                    <label class="form-check-label" for="bankphish2">Ich nutze öffentliche WLAN-Hotspots nur mit VPN</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Nutzen Sie nur die offizielle Banking-App" id="bankphish3">
+                                    <label class="form-check-label" for="bankphish3">Ich prüfe Netzwerke</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Seien Sie skeptisch bei unerwarteten Nachrichten" id="bankphish4">
+                                    <label class="form-check-label" for="bankphish4">Ich vermeide unsichere vertrauliche Gespräche</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Aktivieren Sie Zwei-Faktor-Authentifizierung" id="bankphish5">
+                                    <label class="form-check-label" for="bankphish5">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Überprüfen Sie regelmäßig Ihre Kontobewegungen" id="bankphish6">
+                                    <label class="form-check-label" for="bankphish6">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                            </div>
+
+
+                            <!--Zusätzliche Maßnahmen für Banking-->
+                            <div id="banknet-measures" style="display: none;">
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Nutzen Sie nur gesicherte Banking-Seiten" id="banknet1">
+                                    <label class="form-check-label" for="banknet1">Ich nutze Ende-zu-Ende</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Verwenden Sie die offizielle Banking-App" id="banknet2">
+                                    <label class="form-check-label" for="banknet2">Ich nutze öffentliche WLAN-Hotspots nur mit VPN</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Vermeiden Sie unsichere Verbindungen" id="banknet3">
+                                    <label class="form-check-label" for="banknet3">Ich prüfe Netzwerke</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Überprüfen Sie Seiten und Apps" id="banknet4">
+                                    <label class="form-check-label" for="banknet4">Ich vermeide unsichere vertrauliche Gespräche</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Löschen Sie Cookies regelmäßig" id="banknet5">
+                                    <label class="form-check-label" for="banknet5">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Melden Sie sich nach jeder Sitzung ab" id="banknet6">
+                                    <label class="form-check-label" for="banknet6">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Deaktivieren Sie Cookies für Dritte" id="banknet7">
+                                    <label class="form-check-label" for="banknet7">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Aktivieren Sie Zwei-Faktor-Authentifizierung" id="banknet8">
+                                    <label class="form-check-label" for="banknet8">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <!--Social Media-->
+                            <div id="socialphish-measures" style="display: none;">
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Überprüfen Sie Ihre Profileinstellungen" id="socialphish1">
+                                    <label class="form-check-label" for="socialphish1">Ich nutze Ende-zu-Ende</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Teilen Sie keine sensiblen Informationen" id="socialphish2">
+                                    <label class="form-check-label" for="socialphish2">Ich nutze öffentliche WLAN-Hotspots nur mit VPN</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Löschen Sie ungenutzte Konten" id="socialphish3">
+                                    <label class="form-check-label" for="socialphish3">Ich prüfe Netzwerke</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Seien Sie vorsichtig mit Werbung und Links" id="socialphish4">
+                                    <label class="form-check-label" for="socialphish4">Ich vermeide unsichere vertrauliche Gespräche</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Überprüfen Sie Ihre Freundes- und Followerliste" id="socialphish5">
+                                    <label class="form-check-label" for="socialphish5">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Seien Sie skeptisch bei unerwarteten Nachrichten" id="socialphish6">
+                                    <label class="form-check-label" for="socialphish6">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                            </div>
+
+
+                            <!--Zusätzliche Maßnahmen für Soziale Medien-->
+                            <div id="socialnet-measures" style="display: none;">
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Vermeiden Sie öffentliche WLAN-Hotspots" id="socialnet1">
+                                    <label class="form-check-label" for="socialnet1">Ich nutze Ende-zu-Ende</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Prüfen Sie die Sicherheit der Verbindung" id="socialnet2">
+                                    <label class="form-check-label" for="socialnet2">Ich nutze öffentliche WLAN-Hotspots nur mit VPN</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Löschen Sie Cookies regelmäßig" id="socialnet3">
+                                    <label class="form-check-label" for="socialnet3">Ich prüfe Netzwerke</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Deaktivieren Sie den Zugriff Ihrer Cookies durch Dritte" id="socialnet4">
+                                    <label class="form-check-label" for="socialnet4">Ich vermeide unsichere vertrauliche Gespräche</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Melden Sie sich ab" id="socialnet5">
+                                    <label class="form-check-label" for="socialnet5">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Überprüfen Sie Ihre Freundes- und Followerliste" id="socialnet6">
+                                    <label class="form-check-label" for="socialnet6">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Seien Sie vorsichtig mit geteilten Geräten" id="socialnet7">
+                                    <label class="form-check-label" for="socialnet7">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                            </div>
+                            
+                            
+
+
+
+                            <!--Zusätzliche Maßnahmen waren ein- und verkaufen-->
+                            <div id="shopphish-measures" style="display: none;">
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Nutzen Sie die Plattform-Zahlungsmethoden" id="shopphish1">
+                                    <label class="form-check-label" for="shopphish1">Ich nutze Ende-zu-Ende</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Überprüfen Sie Online-Shops sorgfältig" id="shopphish2">
+                                    <label class="form-check-label" for="shopphish2">Ich nutze öffentliche WLAN-Hotspots nur mit VPN</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Klicken Sie keine verdächtigen Links an" id="shopphish3">
+                                    <label class="form-check-label" for="shopphish3">Ich prüfe Netzwerke</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Geben Sie keine Zahlungsinformationen über unsichere Kanäle weiter" id="shopphish4">
+                                    <label class="form-check-label" for="shopphish4">Ich vermeide unsichere vertrauliche Gespräche</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Nutzen Sie sichere Zahlungsmethoden" id="shopphish5">
+                                    <label class="form-check-label" for="shopphish5">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Seien Sie skeptisch bei außergewöhnlich günstigen Angeboten" id="shopphish6">
+                                    <label class="form-check-label" for="shopphish6">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Speichern Sie keine Zahlungsdaten" id="shopphish7">
+                                    <label class="form-check-label" for="shopphish7">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Überprüfen Sie Bewertungen" id="shopphish8">
+                                    <label class="form-check-label" for="shopphish8">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                            </div>
+
+
+
+                            <!--Zusätzliche Maßnahmen waren ein- und verkaufen-->
+                            <div id="shopnet-measures" style="display: none;">
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Vermeiden Sie öffentliche WLAN-Hotspots" id="shopnet1">
+                                    <label class="form-check-label" for="shopnet1">Ich nutze Ende-zu-Ende</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Prüfen Sie die Sicherheit der Verbindung" id="shopnet2">
+                                    <label class="form-check-label" for="shopnet2">Ich nutze öffentliche WLAN-Hotspots nur mit VPN</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Vermeiden Sie unsichere Verbindungen" id="shopnet3">
+                                    <label class="form-check-label" for="shopnet3">Ich prüfe Netzwerke</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Melden Sie sich ab" id="shopnet4">
+                                    <label class="form-check-label" for="shopnet4">Ich vermeide unsichere vertrauliche Gespräche</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Löschen Sie Cookies regelmäßig" id="shopnet5">
+                                    <label class="form-check-label" for="shopnet5">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Nutzen Sie sichere Zahlungsmethoden:" id="shopnet6">
+                                    <label class="form-check-label" for="shopnet6">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                                <div class="form-check px-3">
+                                    <input class="form-check-input" type="checkbox" name="measures" value="Seien Sie vorsichtig bei ungewöhnlichen Aktivitäten" id="shopnet7">
+                                    <label class="form-check-label" for="shopnet7">Ich nutze Sicherheitsfunktionen</label>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </div>
+                            
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary mt-3">Weiter</button>
+                
+                <script>
+const deviceSelect = document.getElementById('device');
+const activitySelect = document.getElementById('activity');
+const measuresContainer = document.getElementById('measures-container');
+const networkMeasures = document.getElementById('network-measures');
+const phishingMeasures = document.getElementById('phishing-measures');
+
+const surfingMeasures = document.getElementById('surfing-measures');
+const surfing2Measures = document.getElementById('surfing2-measures');
+
+const telephishhMeasures = document.getElementById('socialtel-measures');
+const telenetMeasures = document.getElementById('telefonie-measures');
+
+const messphishMeasures = document.getElementById('msgphish-measures');
+const messnetMeasures = document.getElementById('msgencr-measures');
+
+const bankphishMeasures = document.getElementById('bankphish-measures');
+const banknetMeasures = document.getElementById('banknet-measures');
+
+const socialphishMeasures = document.getElementById('socialphish-measures');
+const socialnetMeasures = document.getElementById('socialnet-measures');
+
+
+const shopphishMeasures = document.getElementById('shopphish-measures');
+const shopnetMeasures = document.getElementById('shopnet-measures');
+
+
+
+
+function updateMeasures() {
+    const device = deviceSelect.value;
+    const activity = activitySelect.value;
+
+    // Alle Maßnahmen ausblenden
+    phishingMeasures.style.display = "none";
+    networkMeasures.style.display = "none";
+    surfingMeasures.style.display = "none";
+    
+    telephishhMeasures.style.display = "none";
+    telenetMeasures.style.display = "none";
+    messphishMeasures.style.display = "none";
+    messnetMeasures.style.display = "none";
+    bankphishMeasures.style.display = "none";
+    banknetMeasures.style.display = "none";
+    socialphishMeasures.style.display = "none";
+    socialnetMeasures.style.display = "none";
+
+
+
+    // Maßnahmen basierend auf Auswahl einblenden
+    if (device && activity) {
+        measuresContainer.style.display = "block"; // Zeige das Maßnahmen-Container
+
+        if (activity === "E-mail senden und empfangen") {
+            phishingMeasures.style.display = "block";
+            if (device === "Laptop und Desktop-PC") {
+                networkMeasures.style.display = "block";
+            }
+        } else if (activity === "Surfen im Internet") {
+            surfingMeasures.style.display = "block";
+            surfing2Measures.style.display = "block";
+        } else if (activity === "Telefonie/ Videotelefonie") {
+            telephishhMeasures.style.display = "block";
+            telenetMeasures.style.display = "block";
+        } else if (activity === "Messenger") {
+            messphishMeasures.style.display = "block"; // Maßnahmen für Messenger
+            messnetMeasures.style.display = "block";  // Verschlüsselungsmaßnahmen
+        }else if (activity === 'Online Banking'){
+            bankphishMeasures.style.display = "block";
+            banknetMeasures.style.display = "block";
+        } else if (activity === "Soziale Medien") { 
+            socialphishMeasures.style.display = "block";
+            socialnetMeasures.style.display = "block";
+        }else if (activity === "Waren Ein- oder Verkaufen"){
+            shopphishMeasures.style.display = "block";
+            shopnetMeasures.style.display = "block";
+        }
+
+
+
+    } else {
+        measuresContainer.style.display = "none"; // Verstecke den Maßnahmen-Container
+    }
+}
+
+
+// Event-Listener für Änderungen
+deviceSelect.addEventListener('change', updateMeasures);
+activitySelect.addEventListener('change', updateMeasures);
+
+
+
+</script>
+                
+               
+
+        
+
+    <!-- Footer -->
+    <footer class="border-top">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2023</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
+
