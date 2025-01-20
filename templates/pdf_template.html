@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Empfehlungen zur IT-Sicherheit</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
+        h2, h3 { color: #333; }
+        .section { margin-bottom: 20px; }
+        .success-message { color: green; font-weight: bold; }
+        ul { margin: 10px 0; padding-left: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Empfehlungen zur IT-Sicherheit</h2>
+
+    {% for bedrohung_name, details in bedrohungen.items() %}
+    <div class="section">
+        <h3>{{ bedrohung_name }}</h3>
+        {% if details.kontext %}
+        <p><strong>Kontext:</strong> {{ details.kontext }}</p>
+        {% endif %}
+        {% if details.risiken %}
+        <p><strong>Risiken:</strong></p>
+        <ul>
+            {% for risiko in details.risiken %}
+            <li>{{ risiko }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if details.empfehlungen %}
+        <p><strong>Empfehlungen:</strong></p>
+        <ul>
+            {% for empfehlung in details.empfehlungen %}
+            <li>{{ empfehlung }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if details.message %}
+        <p class="success-message">{{ details.message }}</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+</body>
+</html>
