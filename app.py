@@ -2,7 +2,19 @@ from flask import Flask, render_template, request, make_response
 import pdfkit
 
 # Konfiguration mit explizitem Pfad zu wkhtmltopdf
-config = pdfkit.configuration(wkhtmltopdf=r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe')
+#config = pdfkit.configuration(wkhtmltopdf=r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe')
+
+# Konfiguration für wkhtmltopdf
+config = pdfkit.configuration(wkhtmltopdf='/usr/bin/wkhtmltopdf')
+
+# Pfad zur HTML-Datei
+html_file_path = 'templates/pdf_templates.html'
+
+# Erstelle die PDF
+pdfkit.from_file(html_file_path, 'download.pdf', configuration=config)
+
+
+
 
 app = Flask(__name__)
 
