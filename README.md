@@ -1,2 +1,0 @@
-# Individuelle_Handlungsempfehlungen
-Webanwendung zu individuellen Handlungsempfehlungen (Masterarbeit)
