@@ -8,7 +8,7 @@ import pdfkit
 config = pdfkit.configuration(wkhtmltopdf='/usr/bin/wkhtmltopdf')
 
 # Pfad zur HTML-Datei
-html_file_path = 'templates/pdf_templates.html'
+html_file_path = 'templates/pdf_template.html'
 
 # Erstelle die PDF
 pdfkit.from_file(html_file_path, 'download.pdf', configuration=config)
