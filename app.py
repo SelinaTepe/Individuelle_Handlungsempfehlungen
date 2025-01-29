@@ -1068,12 +1068,6 @@ def generate_recommendations(activity, device, implemented_measures):
 
 
 
-@app.after_request
-def add_security_headers(response):
-    csp = "default-src 'self'; script-src 'self' https://code.jquery.com https://stackpath.bootstrapcdn.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://stackpath.bootstrapcdn.com https://fonts.googleapis.com https://use.fontawesome.com; font-src 'self' https://fonts.gstatic.com https://use.fontawesome.com; img-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
-    response.headers['Content-Security-Policy'] = csp
-    return response
-
 
 
 @app.route("/")
