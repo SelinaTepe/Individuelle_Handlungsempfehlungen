@@ -640,8 +640,7 @@ recommendation_data = {
                         "Vermeiden Sie unsichere Verbindungen": "Vermeiden Sie unsichere Verbindungen: Führen Sie Online-Banking nur über gesicherte Netzwerke durch. Vermeiden Sie öffentliche WLAN-Hotspots oder nutzen Sie ein VPN für zusätzlichen Schutz.",
                         "Löschen Sie Ihre Cookies regelmäßig": "Löschen Sie Cookies regelmäßig: Konfigurieren Sie Ihren Browser so, dass Cookies nach jeder Sitzung gelöscht werden. Nutzen Sie Browser-Erweiterungen, um Tracking zu minimieren.",
                         "Melden Sie sich nach jeder Sitzung ab":"Melden Sie sich nach jeder Sitzung ab: Verlassen Sie Ihr Online-Banking vollständig, besonders auf gemeinsam genutzten Geräten.",
-                        "Deaktivieren Sie Cookies für Dritte":"Deaktivieren Sie Cookies für Dritte: Konfigurieren Sie Ihren Browser so, dass Dritte nicht auf Ihre Banking-Aktivitäten zugreifen können.",
-                        "Aktivieren Sie Zwei-Faktor-Authentifizierung":"Aktivieren Sie Zwei-Faktor-Authentifizierung: Nutzen Sie Sicherheitsmaßnahmen, wie TAN-Generatoren oder Authentifizierungs-Apps, um Ihre Konten zusätzlich zu schützen."
+                        "Deaktivieren Sie Cookies für Dritte":"Deaktivieren Sie Cookies für Dritte: Konfigurieren Sie Ihren Browser so, dass Dritte nicht auf Ihre Banking-Aktivitäten zugreifen können."
                     },
                     "umsetzung": {
                         "Microsoft Edge": [
@@ -705,8 +704,7 @@ recommendation_data = {
                         "Vermeiden Sie unsichere Verbindungen": "Vermeiden Sie unsichere Verbindungen: Führen Sie Online-Banking nur über gesicherte Netzwerke durch. Vermeiden Sie öffentliche WLAN-Hotspots oder nutzen Sie ein VPN für zusätzlichen Schutz.",
                         "Löschen Sie Ihre Cookies regelmäßig": "Löschen Sie Cookies regelmäßig: Konfigurieren Sie Ihren Browser so, dass Cookies nach jeder Sitzung gelöscht werden. Nutzen Sie Browser-Erweiterungen, um Tracking zu minimieren.",
                         "Melden Sie sich nach jeder Sitzung ab":"Melden Sie sich nach jeder Sitzung ab: Verlassen Sie Ihr Online-Banking vollständig, besonders auf gemeinsam genutzten Geräten.",
-                        "Deaktivieren Sie Cookies für Dritte":"Deaktivieren Sie Cookies für Dritte: Konfigurieren Sie Ihren Browser so, dass Dritte nicht auf Ihre Banking-Aktivitäten zugreifen können.",
-                        "Aktivieren Sie Zwei-Faktor-Authentifizierung":"Aktivieren Sie Zwei-Faktor-Authentifizierung: Nutzen Sie Sicherheitsmaßnahmen, wie TAN-Generatoren oder Authentifizierungs-Apps, um Ihre Konten zusätzlich zu schützen."
+                        "Deaktivieren Sie Cookies für Dritte":"Deaktivieren Sie Cookies für Dritte: Konfigurieren Sie Ihren Browser so, dass Dritte nicht auf Ihre Banking-Aktivitäten zugreifen können."
                     },
                     "umsetzung": {
                         "iOS": [
