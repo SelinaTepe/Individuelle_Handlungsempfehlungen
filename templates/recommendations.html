@@ -144,6 +144,8 @@
     </div>
 
     <!-- PDF-Download -->
+   <div class="d-flex justify-content-between">
+    <!-- PDF-Download-Button -->
     <form action="{{ url_for('download_pdf') }}" method="post" class="pdf-button">
         <input type="hidden" name="activity" value="{{ request.form.activity }}">
         <input type="hidden" name="device" value="{{ request.form.device }}">
@@ -152,6 +154,9 @@
         {% endfor %}
         <button type="submit" class="btn btn-primary mt-3">PDF herunterladen</button>
     </form>
+
+    <!-- Zurück-Button (Rechts ausgerichtet) -->
+    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Zurück zur Startseite</a>
 </div>
 
     
